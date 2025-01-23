@@ -1,6 +1,11 @@
 import Link from "next/link"
 import { useState } from "react"
 export default function DropList(){
+    const handleLogout = () => {
+        localStorage.setItem("isLoggedIn", "false");
+        window.location.reload();
+        window.location.href = "/"; 
+    };
     const[click,setClick]=useState<boolean>(false);
     return(
     <div className="main">
@@ -13,12 +18,17 @@ export default function DropList(){
         {
             click &&
         <div className="linkes absolute top-[8%] right-2">
-            <ul className="bg-gray-200 px-1 h-24 rounded-md">
+            <ul className="bg-gray-200 px-1 h-full rounded-md">
                 <li className=" p-2 bg-gray-100 ">
                     <Link className=" text-xl font-bold font-sans  bg-opacity-50 p-1 rounded-xl hover:brightness-75" href={"/allClients"}>جميع  العملاء</Link>
                 </li>
                 <li className=" p-1 mt-2 bg-gray-100 ">
                     <Link className="  text-xl font-bold font-sans  bg-opacity-50 p-1 rounded-xl hover:brightness-75" href={"/"}>اضافه عميل</Link>
+                </li>
+                <li className=" p-1 mt-2 bg-red-600 rounded-lg  ">
+                <div className="btn">
+                <button onClick={handleLogout} className="btn  p-1  text-white font-semibold  ">تسجل خرووج</button>
+                </div> 
                 </li>
             </ul>
         </div>
