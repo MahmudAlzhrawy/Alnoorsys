@@ -124,9 +124,9 @@ export default function Show(){
     }
     return(
         <>
-        <div className="Main w-[96%] mx-auto my-20">
+        <div className="Main w-[96%] mx-auto my-20 ">
         <h2 className=" text-3xl text-gray-300 italic font-serif leading-4 tracking-widest text-center mb-5 ">العملاء</h2>
-        <div className="clients">
+        <div className="clients ">
         <button
         onClick={calcpprice}
         className="px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 focus:outline-none"
@@ -153,6 +153,7 @@ export default function Show(){
             />
             </div>
             <Suspense fallback ={<h1 className="text-center text-4xl text-blue font-extrabold">Loadding........</h1>}>
+            <div className='overflow-scroll'>
             <table className="table">
                 <thead>
                     <tr>
@@ -191,6 +192,7 @@ export default function Show(){
                 </tbody>
                 </Suspense>
             </table>
+            </div>
             </Suspense>
         </div>
         </div>
