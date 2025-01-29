@@ -19,7 +19,10 @@ export default function DropList(){
             click &&
         <div className="linkes absolute top-[8%] right-2">
             <ul className="bg-gray-200 px-1 h-full rounded-md">
-                <li className=" p-2 bg-gray-100 ">
+            <li className=" p-2 bg-gray-100 ">
+                    <Link className=" text-xl font-bold font-sans  bg-opacity-50 p-1 rounded-xl hover:brightness-75" href={"/report"}> مستحقين الدفع</Link>
+                </li>
+                <li className=" p-2 mt-2 bg-gray-100 ">
                     <Link className=" text-xl font-bold font-sans  bg-opacity-50 p-1 rounded-xl hover:brightness-75" href={"/allClients"}>جميع  العملاء</Link>
                 </li>
                 <li className=" p-1 mt-2 bg-gray-100 ">

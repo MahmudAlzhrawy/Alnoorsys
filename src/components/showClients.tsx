@@ -13,6 +13,8 @@ interface client {
     price:number,
     phone:number,
     status:string,
+    totalPrice:number,
+    remainPrice:number,
     created_at:string
 }
 export default function Show(){
@@ -162,7 +164,9 @@ export default function Show(){
                         <th> التاريخ</th>
                         <th>الكود </th>
                         <th> الهاتف</th>
-                        <th>السعر </th>
+                        <th>السعر الكلى</th>
+                        <th>المدفوع </th>
+                        <th>الباقى</th>
                         <th>الشامبر</th>
                         <th>العدسه</th>
                         <th>الاسم </th>
@@ -182,7 +186,9 @@ export default function Show(){
                             <td>{client.created_at}</td>
                             <td>{client.code}</td>
                             <td>{client.phone}</td>
+                            <td>{client.totalPrice}</td>
                             <td>{client.price}</td>
+                            <td>{client.remainPrice}</td>
                             <td>{client.frame}</td>
                             <td>{client.lences}</td>
                             <td>{client.name}</td>

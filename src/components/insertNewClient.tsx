@@ -12,9 +12,11 @@ export default function Insert(){
         lences: '',
         frame: '',
         code: '',
-        price: '',
+        price: 0,
         phone: '',
         status: '',
+        totalPrice: 0,
+        
         },
         validationSchema: YUP.object({
         name: YUP.string().required('Name is required'),
@@ -24,14 +26,20 @@ export default function Insert(){
         price: YUP.number().required('Price is required'),
         phone: YUP.number().required('Phone is required'),
         status: YUP.string().required('Status is required'),
+        totalPrice: YUP.number().required('Total Price is required'),
+        remainPrice:YUP.number()
         }),
+        
         onSubmit: async(values, { resetForm }) => {
             try{
-
+                const remainPrice:number= Number(values.totalPrice) - Number(values.price);
                 const res = await fetch('/clients',{
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(values),
+                    body: JSON.stringify({
+                    ...values,
+                    remainPrice,  
+                    }),
                 });
                 if (!res.ok) throw new Error('Failed to create client');
                 else {
@@ -94,7 +102,16 @@ export default function Insert(){
     name="frame"  />
     <div className="erorr">{formik.touched.frame&& formik.errors.frame && formik.errors.frame}</div>
     </div>
-    <div className="formFeild"><label htmlFor="prc">السعر</label>
+    <div className="formFeild"><label htmlFor="tprc">السعر الكلى</label>
+    <input 
+        onChange={formik.handleChange}
+        value={formik.values.totalPrice}
+    id="tprc"
+    type="number"
+    name="totalPrice"   />
+    <div className="erorr">{formik.touched.totalPrice&& formik.errors.totalPrice&&formik.errors.totalPrice}</div>
+    </div>
+    <div className="formFeild"><label htmlFor="prc">المدفوع</label>
     <input 
         onChange={formik.handleChange}
         value={formik.values.price}

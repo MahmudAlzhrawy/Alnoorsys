@@ -1,11 +1,11 @@
 import { dbConection } from "@/lib/db";
-import { Customer } from "@/models/customer";
+import { Client } from "@/models/customer";
 
 export async function GET(req, {params} ) {
-  const { id } = params; // الحصول على id مباشرة من params
+  const { id } = await params; // الحصول على id مباشرة من params
   try {
     await dbConection();
-    const client = await Customer.findById(id);
+    const client = await Client.findById(id);
     if (!client) {
       return new Response(JSON.stringify({ message: "Client not found" }), {
         status: 404,
@@ -24,15 +24,15 @@ export async function GET(req, {params} ) {
 }
 
 export async function PATCH(req, { params }) {
-  const { id } = params;
+  const { id } =await params;
   try {
     await dbConection();
     const body = await req.json();
-    const { name, price, status, code, lences, frame, phone } = body;
+    const { name, price, status, code, lences, frame, phone,totalPrice,remainPrice } = body;
 
-    const updatedClient = await Customer.findByIdAndUpdate(
+    const updatedClient = await Client.findByIdAndUpdate(
       id,
-      { name, price, status, code, frame, phone, lences },
+      { name, price, status, code, frame, phone, lences,totalPrice,remainPrice },
       { new: true }
     );
 
@@ -55,10 +55,10 @@ export async function PATCH(req, { params }) {
 }
 
 export async function DELETE(req, { params }) {
-  const { id } = params;
+  const { id } = await params;
   try {
     await dbConection();
-    const deletedClient = await Customer.findByIdAndDelete(id);
+    const deletedClient = await Client.findByIdAndDelete(id);
 
     if (!deletedClient) {
       return new Response(

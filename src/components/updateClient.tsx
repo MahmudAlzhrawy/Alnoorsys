@@ -19,6 +19,8 @@ interface Client {
   price: number;
   phone: number;
   status: string;
+  totalPrice:number;
+  remainPrice:number;
 }
 
 export default function Update ({ clientId }: Props) {
@@ -59,6 +61,9 @@ export default function Update ({ clientId }: Props) {
       price: client?.price || 0,
       phone: client?.phone || 0,
       status: client?.status || '',
+      totalPrice: client?.totalPrice || 0,
+      remainPrice: client?.remainPrice || 0,
+
     },
     enableReinitialize: true, 
     validationSchema: YUP.object({
@@ -72,10 +77,14 @@ export default function Update ({ clientId }: Props) {
     }),
     onSubmit: async (values, { resetForm }) => {
       try {
+        const remainPrice=Number(values.totalPrice)-Number(values.price)
         const res = await fetch(`/clients/${clientId}`, {
           method: 'PATCH',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(values),
+          body: JSON.stringify( {...values,
+            remainPrice
+          }
+          ),
         });
         if (res.ok) {
           Toast.fire({
@@ -151,7 +160,15 @@ export default function Update ({ clientId }: Props) {
           />
           <div className="error">{formik.touched.frame && formik.errors.frame}</div>
         </div>
-
+        <div className="formFeild"><label htmlFor="tprc">السعر الكلى</label>
+        <input 
+            onChange={formik.handleChange}
+            value={formik.values.totalPrice}
+        id="tprc"
+        type="number"
+        name="totalPrice"   />
+        <div className="erorr">{formik.touched.totalPrice&& formik.errors.totalPrice&&formik.errors.totalPrice}</div>
+        </div>
         <div className="formField">
           <label htmlFor="prc">Price</label>
           <input
